@@ -1,12 +1,251 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Link</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock in Rio - Vini</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff1744 0%, #f50057 25%, #d32f2f 50%, #c41c3b 75%, #b71c1c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animação de luzes de palco */
+        @keyframes lights {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(90deg, 
+                rgba(255, 215, 0, 0.2) 0%, 
+                rgba(255, 69, 0, 0.2) 25%, 
+                rgba(255, 20, 147, 0.2) 50%, 
+                rgba(138, 43, 226, 0.2) 75%, 
+                rgba(255, 215, 0, 0.2) 100%);
+            animation: lights 3s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            max-width: 600px;
+            width: 90%;
+            z-index: 10;
+            border: 3px solid #ffd700;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.8); }
+        }
+
+        h1 {
+            color: #ffd700;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px #ff1744, 6px 6px 0px #c41c3b;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .rock-emoji {
+            font-size: 2em;
+            margin: 0 10px;
+        }
+
+        .question {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin: 40px 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sim-btn {
+            background: linear-gradient(135deg, #00ff00, #00cc00);
+            color: #000;
+        }
+
+        .sim-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 255, 0, 0.6);
+        }
+
+        .nao-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff0000);
+            color: #fff;
+        }
+
+        .nao-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.6);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .jigglypuff-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+            margin-top: 30px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.05); }
+            50% { transform: rotate(5deg) scale(1.1); }
+            75% { transform: rotate(-5deg) scale(1.05); }
+        }
+
+        .jigglypuff {
+            font-size: 150px;
+            animation: dance 0.8s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .celebration {
+            color: #ffd700;
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: fall 3s linear;
+            z-index: 5;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
-<body style="font-family: system-ui; text-align: center; padding: 4rem; background: #1a1a1a; color: #7dd87d">
-  <h1>"Do Something" está no ar</h1>
-  <p style="color: #ff69b4; font-size: 1.5rem; font-style: italic; letter-spacing: 0.05em; margin-top: 2rem;">raspuquinha, quer ir para a caminha assim que o filme acabar? ❤️</p>
-  <img src="momo.jpg" alt="momo" style="max-width: 300px; margin-top: 2rem; border-radius: 10px;">
+<body>
+    <div class="container">
+        <h1><span class="rock-emoji">🎸</span>ROCK IN RIO<span class="rock-emoji">🎸</span></h1>
+        
+        <div class="question">
+            Você está pronta para o Rock in Rio? 🎵
+        </div>
+
+        <div class="buttons" id="buttons">
+            <button class="sim-btn" onclick="answerSim()">Sim! 🔥</button>
+            <button class="nao-btn" onclick="answerNao()">Não</button>
+        </div>
+
+        <div class="jigglypuff-container" id="jigglypuff-container">
+            <div class="jigglypuff">🎤</div>
+            <div class="celebration">
+                VAMBORA PRO ROCK! 🎸🎵🔥
+            </div>
+            <button class="sim-btn" onclick="location.reload()" style="margin-top: 20px;">Fazer de novo</button>
+        </div>
+    </div>
+
+    <script>
+        function answerSim() {
+            // Esconde os botões
+            document.getElementById('buttons').classList.add('hidden');
+            
+            // Mostra o Jigglypuff
+            document.getElementById('jigglypuff-container').style.display = 'block';
+            
+            // Cria confete
+            createConfetti();
+        }
+
+        function answerNao() {
+            // Pede pra responder de novo com uma mensagem legal
+            alert('Vamos lá! Tira esse não aí! 🎸\nVocê PRECISA estar pronta pro Rock in Rio! 🔥');
+            // Anima os botões pra chamar atenção
+            const buttons = document.getElementById('buttons');
+            buttons.style.animation = 'none';
+            setTimeout(() => {
+                buttons.style.animation = 'pulse 0.5s ease-in-out 3';
+            }, 10);
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = ['#ffd700', '#ff1744', '#00ff00', '#ff6b6b'][Math.floor(Math.random() * 4)];
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+    </script>
 </body>
 </html>
